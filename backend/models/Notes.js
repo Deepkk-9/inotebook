@@ -5,11 +5,11 @@ const { Schema } = mongoose;
 const NotesSchema = new Schema({
     title: {
         type: String,
-        require: true
+        required: true
     },
     description: {
         type: String,
-        require: true,
+        required: true,
     },
     tag: {
         type: String,
@@ -21,4 +21,4 @@ const NotesSchema = new Schema({
     }
 });
 
-module.exports = mongoose.Schema("notes", NotesSchema)
+module.exports = mongoose.model("notes", NotesSchema)
