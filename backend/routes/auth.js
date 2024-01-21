@@ -21,15 +21,14 @@ router.post("/createuser",
 
     async (req, res) => {
 
+        // Returns error when the validation fails of express-validator
+        const error = validationResult(req);
+
+        if (!error.isEmpty()) {
+            return res.status(400).json({ errors: error.array() })
+        }
+
         try {
-
-            // Returns error when the validation fails of express-validator
-            const error = validationResult(req);
-
-            if (!error.isEmpty()) {
-                return res.status(400).json({ errors: error.array() })
-            }
-
 
             //Checks if already a email exists or not
             let user = await User.findOne({ email: req.body.email })
@@ -61,5 +60,59 @@ router.post("/createuser",
             res.status(500).json({ message: err.message })
         }
     })
+
+
+router.post("/login",
+
+    //Validation of data fields
+    [
+        body('email', "Enter a valid Email").isEmail(),
+        body('password', "Password cannot be blank").exists(),
+    ],
+
+    async (req, res) => {
+        // Returns error when the validation fails of express-validator
+        const error = validationResult(req);
+
+        if (!error.isEmpty()) {
+            return res.status(400).json({ errors: error.array() })
+        }
+
+        try {
+
+            const { email, password } = req.body;
+
+            const user = await User.findOne({ email });
+
+
+            if (!user) {
+                return res.status(400).json({ error: "Please try to login with correct credentials" })
+            }
+
+            // console.log(user.password);
+
+            const checkPass = await bcrypt.compare(password, user.password);
+
+            if (!checkPass) {
+                return res.status(400).json({ error: "Please try to login with correct credentials" })
+            }
+
+            const data = {
+                id: user.id
+            }
+
+            const authToken = jwt.sign(data, JWT_SECRET)
+
+            res.json({ authToken })
+        }
+        catch (err) {
+            console.log(err);
+            res.status(500).json({ message: err.message })
+        }
+
+    })
+
+
+
 
 module.exports = router
