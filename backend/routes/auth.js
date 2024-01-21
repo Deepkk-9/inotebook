@@ -1,6 +1,9 @@
 const express = require('express')
 const { body, validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
+const JWT_SECRET = "PracticeProject$1"
 
 const router = express.Router()
 
@@ -44,7 +47,14 @@ router.post("/createuser",
                 email: req.body.email,
                 password: secPass
             })
-            res.send(user)
+
+            const data = {
+                id: user.id
+            }
+
+            const authToken = jwt.sign(data, JWT_SECRET)
+
+            res.json({ authToken })
         }
         catch (err) {
             console.log(err);
