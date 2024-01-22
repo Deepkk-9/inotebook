@@ -15,7 +15,7 @@ router.post("/createuser",
     //Validating the data we are sending before the request is sent
 
     [
-        body('name', "Enter a valid Nname").isLength({ min: 3 }),
+        body('name', "Enter a valid Name").isLength({ min: 3 }),
         body('email', "Enter a valid Email").isEmail(),
         body('password', "Length of the password should be atleat 5 characters").isLength({ min: 5 }),
     ],
