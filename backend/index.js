@@ -13,6 +13,6 @@ app.use('/api/notes', require('./routes/notes'))
 
 
 app.listen(port, () => {
-    console.log(`Listining at port ${port}`);
+    console.log(`Backend Listining at port ${port}`);
 })
 

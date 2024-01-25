@@ -7,18 +7,24 @@ import {
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
+import NoteState from './context/notes/NoteState';
 
 function App() {
   return (
     <>
-      <Router>
-        <Navbar />
+      <NoteState>
+        <Router>
+          <Navbar />
 
-        <Routes>
-          <Route path="/" Component={Home} />
-          <Route path="/about" Component={About} />
-        </Routes>
-      </Router>
+          <div className="container my-3">
+            <Routes>
+              <Route path="/" Component={Home} />
+              <Route path="/about" Component={About} />
+            </Routes>
+          </div>
+
+        </Router>
+      </NoteState >
     </>
   );
 }
