@@ -51,8 +51,6 @@ router.post("/createuser",
                 password: secPass
             })
 
-            console.log(user);
-
             const data = {
                 id: user._id
             }

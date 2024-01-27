@@ -10,7 +10,7 @@ export default function SignUp(props) {
 
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
 
         try {
@@ -25,7 +25,7 @@ export default function SignUp(props) {
             const userToken = await response.json()
 
             if (userToken.success) {
-                localStorage.setItem("auth-token", userToken.authtoken);
+                localStorage.setItem("auth-token", userToken.authToken);
                 navigate("/");
                 showAlert("Account Created Successfully", "success")
             }
@@ -45,7 +45,8 @@ export default function SignUp(props) {
 
     return (
         <div className="container">
-            <form onSubmit={handleLogin}>
+            <h2>Create and account to use iNoteBook</h2>
+            <form onSubmit={handleSignUp}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
                     <input type="text" onChange={onChange} value={credentials.name} className="form-control" id="name" name='name' minLength={3} required />
