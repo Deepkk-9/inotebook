@@ -60,21 +60,21 @@ export default function Notes() {
                             <form className='my-3'>
                                 <div className="mb-3">
                                     <label htmlFor="etitle" className="form-label">Title</label>
-                                    <input type="text" value={note.etitle} className="form-control" id="etitle" name='etitle' onChange={onChange} />
+                                    <input type="text" value={note.etitle} className="form-control" id="etitle" name='etitle' minLength={5} required onChange={onChange} />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="edescription" className="form-label">Description</label>
-                                    <input type="text" value={note.edescription} className="form-control" id="edescription" name='edescription' onChange={onChange} />
+                                    <input type="text" value={note.edescription} className="form-control" id="edescription" name='edescription' minLength={5} required onChange={onChange} />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="etag" className="form-label">Tag</label>
-                                    <input type="text" value={note.etag} className="form-control" id="etag" name='etag' onChange={onChange} />
+                                    <input type="text" value={note.etag} className="form-control" id="etag" name='etag' minLength={5} required onChange={onChange} />
                                 </div>
                             </form>
                         </div>
                         <div className="modal-footer">
                             <button type="button" ref={refClose} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={handleOnEditNote}>Save changes</button>
+                            <button type="button" disabled={note.etitle.length < 5 && note.edescription.length < 5} className="btn btn-primary" onClick={handleOnEditNote}>Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -83,10 +83,14 @@ export default function Notes() {
 
             <div className="row">
                 <h2>Your Notes</h2>
+                <div className="container">
+                    {notes.length === 0 && "No notes to display"}
+                </div>
                 {
                     notes.map((note) => {
                         {
-                            return <NoteItem key={note._id} updateNote={updateNote} note={note} />
+                            return <NoteItem key={note._id
+                            } updateNote={updateNote} note={note} />
                         }
                     })
                 }

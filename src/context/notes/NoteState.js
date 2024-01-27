@@ -49,10 +49,8 @@ const NoteState = (props) => {
             });
 
 
-            const data = await response.json()
-
-            console.log(data);
-            setNotes(notes.concat(data))
+            const note = await response.json()
+            setNotes(notes.concat(note))
         }
         catch (err) {
             console.log("Add note error: ", err);
@@ -73,14 +71,10 @@ const NoteState = (props) => {
                 },
             });
 
-            const data = await response.json()
+            const note = await response.json()
 
-            console.log(data);
-
-            console.log("Note deleted id : " + id);
             const newNotes = notes.filter((note) => { return note._id !== id })
             setNotes(newNotes)
-            console.log(newNotes);
         }
         catch (err) {
             console.log("Delete note error: ", err);
