@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function SignUp() {
+export default function SignUp(props) {
+    const { showAlert } = props;
+
     const host = "http://localhost:5000";
 
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" });
@@ -22,14 +24,13 @@ export default function SignUp() {
 
             const userToken = await response.json()
 
-            console.log(userToken);
-
             if (userToken.success) {
                 localStorage.setItem("auth-token", userToken.authtoken);
                 navigate("/");
+                showAlert("Account Created Successfully", "success")
             }
             else {
-                alert("User Already Exists");
+                showAlert("Invalid Credentials", "danger")
             }
 
         }

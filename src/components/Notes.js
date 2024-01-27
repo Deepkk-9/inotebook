@@ -4,7 +4,10 @@ import NoteItem from './NoteItem';
 import AddNote from './AddNote';
 
 
-export default function Notes() {
+export default function Notes(props) {
+
+    const { showAlert } = props;
+
     const context = useContext(noteContext);
 
     const { notes, getAllNotes, editNote } = context;
@@ -31,6 +34,7 @@ export default function Notes() {
         editNote(note.eid, note.etitle, note.edescription, note.etag);
         // console.log(refClose.current);
         refClose.current.click();
+        showAlert("Updated Successfully", "success")
     }
 
     const onChange = (e) => {
@@ -40,7 +44,7 @@ export default function Notes() {
 
     return (
         <>
-            <AddNote />
+            <AddNote showAlert={showAlert} />
 
             {/* <!-- Modal --> */}
 
@@ -89,7 +93,7 @@ export default function Notes() {
                 {
                     notes.map((note) => {
                         {
-                            return <NoteItem key={note._id
+                            return <NoteItem showAlert={showAlert} key={note._id
                             } updateNote={updateNote} note={note} />
                         }
                     })
