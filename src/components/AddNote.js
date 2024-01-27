@@ -15,7 +15,7 @@ export default function AddNote() {
     }
 
     const onChange = (e) => {
-        setNote({ ...note, [e.target.name]: [e.target.value] })
+        setNote({ ...note, [e.target.name]: e.target.value })
     }
 
     return (
@@ -29,6 +29,10 @@ export default function AddNote() {
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">Description</label>
                     <input type="text" className="form-control" id="description" name='description' onChange={onChange} />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="tag" className="form-label">Tag</label>
+                    <input type="text" className="form-control" id="tag" name='tag' onChange={onChange} />
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={handleOnAddNote}>Add Note</button>
             </form>

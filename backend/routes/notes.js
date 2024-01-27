@@ -38,9 +38,12 @@ router.post("/addnote", fetchuser,
 
             const savedNote = await note.save();
 
-            res.send(savedNote)
+            console.log(savedNote);
+
+            res.json(savedNote)
         } catch (err) {
-            res.status(500).send("Internal Server Error")
+            // res.send(`Internal Server Error ksflsdjfldsj`)
+            res.json({ mgs: `Internal Server Error ksflsdjfldsj ${err}`, },)
         }
 
     })

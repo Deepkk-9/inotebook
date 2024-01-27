@@ -13,17 +13,22 @@ const NoteState = (props) => {
 
     //Get all notes
     const getAllNotes = async () => {
-        const response = await fetch(`${host}/api/notes/fetchallnotes`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YWQwZDE4MGZiNmRkMWMxN2NmY2FkNiIsImlhdCI6MTcwNTg3NDM2NH0.nppXI_JBi4J0NZ-fR40TBlNSdynNfWWT4W_4IvZgpGw"
-            },
-        });
+        try {
+            const response = await fetch(`${host}/api/notes/fetchallnotes`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YWQwZDE4MGZiNmRkMWMxN2NmY2FkNiIsImlhdCI6MTcwNTg3NDM2NH0.nppXI_JBi4J0NZ-fR40TBlNSdynNfWWT4W_4IvZgpGw"
+                },
+            });
 
-        const data = await response.json()
+            const data = await response.json()
 
-        setNotes(data)
+            setNotes(data)
+        }
+        catch (err) {
+            console.log("Get All notes error: ", err);
+        }
     }
 
 
@@ -31,72 +36,93 @@ const NoteState = (props) => {
     // Add a note 
     const addNote = async (title, description, tag) => {
 
-        const response = await fetch(`${host}/api/notes/addnote`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YWQwZDE4MGZiNmRkMWMxN2NmY2FkNiIsImlhdCI6MTcwNTg3NDM2NH0.nppXI_JBi4J0NZ-fR40TBlNSdynNfWWT4W_4IvZgpGw"
-            },
-            body: JSON.stringify({ "title": title, "description": description, "tag": tag }),
-        });
+        // console.log(title, description, tag);
 
-        const data = await response.json()
+        try {
+            const response = await fetch(`${host}/api/notes/addnote`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YWQwZDE4MGZiNmRkMWMxN2NmY2FkNiIsImlhdCI6MTcwNTg3NDM2NH0.nppXI_JBi4J0NZ-fR40TBlNSdynNfWWT4W_4IvZgpGw"
+                },
+                body: JSON.stringify({ title, description, tag }),
+            });
 
-        console.log(data);
 
-        let note = {
-            "title": title,
-            "description": description,
-            "tag": tag,
+            const data = await response.json()
+
+            console.log(data);
+            setNotes(notes.concat(data))
         }
-        setNotes(notes.concat(note))
+        catch (err) {
+            console.log("Add note error: ", err);
+        }
     }
+
+
 
     // Delete a note
     const deleteNote = async (id) => {
 
-        const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YWQwZDE4MGZiNmRkMWMxN2NmY2FkNiIsImlhdCI6MTcwNTg3NDM2NH0.nppXI_JBi4J0NZ-fR40TBlNSdynNfWWT4W_4IvZgpGw"
-            },
-        });
+        try {
+            const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YWQwZDE4MGZiNmRkMWMxN2NmY2FkNiIsImlhdCI6MTcwNTg3NDM2NH0.nppXI_JBi4J0NZ-fR40TBlNSdynNfWWT4W_4IvZgpGw"
+                },
+            });
 
-        const data = await response.json()
+            const data = await response.json()
 
-        console.log(data);
+            console.log(data);
 
-        console.log("Note deleted id : " + id);
-        const newNotes = notes.filter((note) => { return note._id !== id })
-        setNotes(newNotes)
-        console.log(newNotes);
+            console.log("Note deleted id : " + id);
+            const newNotes = notes.filter((note) => { return note._id !== id })
+            setNotes(newNotes)
+            console.log(newNotes);
+        }
+        catch (err) {
+            console.log("Delete note error: ", err);
+        }
     }
+
+
+
 
     // Edit a note
     const editNote = async (id, title, description, tag) => {
 
-        const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YWQwZDE4MGZiNmRkMWMxN2NmY2FkNiIsImlhdCI6MTcwNTg3NDM2NH0.nppXI_JBi4J0NZ-fR40TBlNSdynNfWWT4W_4IvZgpGw"
-            },
-            body: JSON.stringify({ title, description, tag }),
-        });
+        // console.log(id, title, description, tag);
 
-        const data = await response.json()
+        try {
 
-        console.log(data);
+            const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YWQwZDE4MGZiNmRkMWMxN2NmY2FkNiIsImlhdCI6MTcwNTg3NDM2NH0.nppXI_JBi4J0NZ-fR40TBlNSdynNfWWT4W_4IvZgpGw"
+                },
+                body: JSON.stringify({ title, description, tag }),
+            });
 
-        for (let i = 0; i < notes.length; i++) {
-            const element = notes[i];
+            const data = await response.json()
 
-            if (element._id === id) {
-                element.title = title;
-                element.description = description;
-                element.tag = tag;
+            let newNotes = JSON.parse(JSON.stringify(notes));
+
+            for (let i = 0; i < newNotes.length; i++) {
+
+                if (newNotes[i]._id === id) {
+                    newNotes[i].title = title;
+                    newNotes[i].description = description;
+                    newNotes[i].tag = tag;
+                    break;
+                }
             }
+            setNotes(newNotes)
+        }
+        catch (err) {
+            console.log("Edit note error: ", err);
         }
     }
 
