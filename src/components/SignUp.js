@@ -59,10 +59,10 @@ export default function SignUp(props) {
                     <label htmlFor="password" className="form-label">Password</label>
                     <input type="password" onChange={onChange} value={credentials.password} className="form-control" id="password" name='password' minLength={5} required />
                 </div>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                     <label htmlFor="password" className="form-label">Confirm Password</label>
                     <input type="password" onChange={onChange} value={credentials.cpassword} className="form-control" id="cpassword" name='cpassword' minLength={5} required />
-                </div>
+                </div> */}
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>
