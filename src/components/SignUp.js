@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 export default function SignUp(props) {
     const { showAlert } = props;
 
-    const host = "http://localhost:5000";
+    const host = "https://inotebook-deepkk-9.onrender.com";
 
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" });
 

@@ -3,8 +3,9 @@ const { body, validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const fetchuser = require('../middleware/Fetchuser')
+require('dotenv').config()
 
-const JWT_SECRET = "PracticeProject$1"
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const router = express.Router()
 

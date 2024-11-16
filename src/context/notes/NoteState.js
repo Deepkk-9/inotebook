@@ -3,7 +3,7 @@ import NoteContext from "./noteContext";
 
 const NoteState = (props) => {
 
-    const host = "http://localhost:5000";
+    const host = "https://inotebook-deepkk-9.onrender.com";
 
     const notesInitial = []
 

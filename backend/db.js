@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const mongoURI = "mongodb+srv://kawaledeep9:AFISSJaDSA9tacH2@inotebook.rimwswq.mongodb.net/?retryWrites=true&w=majority";
+require('dotenv').config()
+const mongoURI = process.env.mongoURI;
 
 const connectToMongo = async () => {
     await mongoose.connect(mongoURI)
@@ -7,4 +8,4 @@ const connectToMongo = async () => {
         .catch(err => { console.log("Connection failed to Mongo!", err); })
 }
 
-module.exports = connectToMongo
+module.exports = connectToMongo 
